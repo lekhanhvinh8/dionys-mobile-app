@@ -1,4 +1,4 @@
-import 'package:dionys/home/home.dart';
+import 'package:dionys/features/home/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -113,7 +113,7 @@ class Login extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Home()),
+                                    builder: (context) => const HomePage()),
                               );
                             },
                             child: const Text(
@@ -129,7 +129,8 @@ class Login extends StatelessWidget {
                         print("pressed !!!");
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Home()),
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
                         );
                       },
                       child: Container(
