@@ -1,4 +1,5 @@
 import 'package:dionys/features/home/homepage.dart';
+import 'package:dionys/home.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -35,7 +36,8 @@ class Login extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Container(
+              Expanded(
+                  child: Container(
                 width: 325,
                 height: 470,
                 decoration: const BoxDecoration(
@@ -129,8 +131,7 @@ class Login extends StatelessWidget {
                         print("pressed !!!");
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()),
+                          MaterialPageRoute(builder: (context) => const Home()),
                         );
                       },
                       child: Container(
@@ -158,9 +159,9 @@ class Login extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 17,
-                    ),
+                    // const SizedBox(
+                    //   height: 17,
+                    // ),
                     // const Text(
                     //   "Or Login using Social Media Account",
                     //   style: TextStyle(fontWeight: FontWeight.bold),
@@ -197,7 +198,7 @@ class Login extends StatelessWidget {
                     // )
                   ],
                 ),
-              )
+              )),
             ],
           ),
         ),

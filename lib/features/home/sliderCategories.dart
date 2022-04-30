@@ -10,19 +10,22 @@ class SliderCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<Categories>(context);
     var categories = categoryProvider.categories;
-    return SizedBox(
+    return Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
             Container(
+              color: Colors.white,
               height: 30,
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Row(
                 children: const [Text("Danh mục")],
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.4,
+            Container(
+              color: Colors.white,
+              margin: EdgeInsets.only(top: 2),
+              height: MediaQuery.of(context).size.width * 0.33,
               child: ListView.builder(
                 controller: ScrollController(),
                 scrollDirection: Axis.horizontal,

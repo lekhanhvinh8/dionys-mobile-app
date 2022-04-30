@@ -23,8 +23,7 @@ class CarouselImages extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: (imageUrl == "")
-                        ? AssetImage('assets/categories/cate1.png')
-                            as ImageProvider
+                        ? AssetImage('categories/cate1.png') as ImageProvider
                         : NetworkImage(imageUrl),
                     fit: BoxFit.cover),
               ),

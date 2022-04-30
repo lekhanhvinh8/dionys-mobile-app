@@ -1,3 +1,5 @@
+import 'package:badges/badges.dart';
+import 'package:dionys/features/cart/cartPage.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
@@ -9,6 +11,7 @@ class Header extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
       width: MediaQuery.of(context).size.width,
       height: 80,
+      color: const Color.fromRGBO(255, 255, 255, 1),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -38,7 +41,21 @@ class Header extends StatelessWidget {
               ),
             );
           })),
-          const Icon(Icons.shopping_cart)
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartPage()),
+              );
+            },
+            child: Badge(
+              badgeContent: const Text('3'),
+              child: const Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.red,
+              ),
+            ),
+          ),
         ],
       ),
     );

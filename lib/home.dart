@@ -3,6 +3,7 @@ import 'package:dionys/app/models/category.dart';
 import 'package:dionys/app/providers/categories.dart';
 import 'package:dionys/app/services/categoriesService.dart';
 import 'package:dionys/features/home/homepage.dart';
+import 'package:dionys/features/user/userPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +24,7 @@ class _HomeState extends State<Home> {
       'Index 1: Đơn mua',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: Tôi',
-      style: optionStyle,
-    ),
+    UserPage(),
   ];
 
   void _onItemTapped(int index) {
