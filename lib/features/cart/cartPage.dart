@@ -48,10 +48,24 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
         bottomNavigationBar: const PurchaseBottom(),
-        appBar: AppBar(
-            toolbarHeight: 70,
-            flexibleSpace: Container(child: Header()),
-            automaticallyImplyLeading: false),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(70), // Set this height
+            child: Container(
+              color: Colors.white,
+              height: 50,
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  InkWell(child: Icon(Icons.arrow_back, color: Colors.grey)),
+                  Container(
+                      margin: EdgeInsets.only(left: 7),
+                      child: Text(
+                        "Giỏ hàng",
+                        style: TextStyle(fontSize: 20),
+                      ))
+                ],
+              ),
+            )),
         body: Container(
             color: const Color.fromRGBO(240, 240, 240, 1),
             height: MediaQuery.of(context).size.height,

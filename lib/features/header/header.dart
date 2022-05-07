@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
               width: (MediaQuery.of(context).size.width - 20) * 0.85,
               padding: const EdgeInsets.only(left: 10, right: 10),
               decoration: const BoxDecoration(
-                color: Colors.tealAccent,
+                color: Color.fromRGBO(245, 245, 245, 1),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
