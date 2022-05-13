@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dionys/app/models/address.dart';
 import 'package:dionys/app/services/addressService.dart';
+import 'package:dionys/app/services/userService.dart';
 import 'package:flutter/material.dart';
 
 class SelectedVariantValue {
@@ -23,58 +25,43 @@ class AddressProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  initializePage() {
-    var address = Address();
-    address.id = 1;
-    address.customerName = "Vinh";
-    address.detail = "Số 2, Đường XYZ";
-    address.phoneNumber = "0654563848";
-    address.isDefault = true;
-    address.provinceName = "TP Hồ Chí Minh";
-    address.districtName = "Thành phố Thủ Đức";
-    address.wardName = "Phường Linh Chiểu";
-
-    var address1 = Address();
-    address1.id = 2;
-    address1.customerName = "Ten";
-    address1.detail = "Số 21, Đường FGH";
-    address1.phoneNumber = "6567543533";
-    address1.isDefault = false;
-    address1.provinceName = "Hà Nội";
-    address1.districtName = "Nam Từ Liêm";
-    address1.wardName =
-        "Phường  Ddddddddddddddddddddddddddddddddddddddddddddddddddddd";
-
-    addresses.add(address);
-    addresses.add(address1);
+  initializePage(String token) async {
+    addresses = await UserService(token).getAddresses();
     notifyListeners();
   }
 
   resetCurrentAddress() {
     currentAddress = Address();
-
     isAddressEmpty = false;
+    clearAddressSelection();
+    notifyListeners();
+  }
+
+  clearAddressSelection() {
     provinces = [];
     districts = [];
     wards = [];
-  }
-
-  addAddress(Address address) {
-    address.id = Random().nextInt(1000);
-    addresses.add(address);
-
-    if (address.isDefault) {
-      addresses.forEach((address) {
-        address.isDefault = false;
-      });
-
-      address.isDefault = true;
-    }
 
     notifyListeners();
   }
 
-  removeAddress(int id) {
+  addAddress(Address address, String token) async {
+    if (address.isDefault) {
+      addresses.forEach((address) {
+        address.isDefault = false;
+      });
+    }
+
+    final newAddress = await UserService(token).addAddress(address);
+    address.id = newAddress.id;
+    addresses.add(address);
+
+    resetCurrentAddress();
+    notifyListeners();
+  }
+
+  removeAddress(int id, String token) async {
+    await UserService(token).removeAddress(id);
     addresses.removeWhere((address) => address.id == id);
     notifyListeners();
   }

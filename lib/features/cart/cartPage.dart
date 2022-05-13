@@ -44,8 +44,6 @@ class _CartPageState extends State<CartPage> {
     var products = productsFilterProvider.products;
     var isReload = productsFilterProvider.isReload;
 
-    print(products);
-
     return Scaffold(
         bottomNavigationBar: const PurchaseBottom(),
         appBar: PreferredSize(

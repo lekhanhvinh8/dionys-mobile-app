@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:dionys/app/config.dart';
 import 'package:dionys/app/models/address.dart';
 import 'package:http/http.dart' as http;
 
-const apiUrl = "https://online-gateway.ghn.vn/shiip/public-api/master-data/";
-const GHNToken = "8abf528e-2bd1-11ec-ab03-e680cb72ac98";
+final apiUrl = Config.GHNUrl;
+final GHNToken = Config.GHNToken;
 
 class AddressService {
   Future<List<Province>> getProvices() async {

@@ -1,5 +1,6 @@
 import 'package:dionys/app/models/address.dart';
 import 'package:dionys/app/providers/addressProvider.dart';
+import 'package:dionys/app/providers/authProvider.dart';
 import 'package:dionys/features/user/addresses/addNewAddressBar.dart';
 import 'package:dionys/features/user/addresses/addressBar.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,11 @@ class _AddressesPageState extends State<AddressesPage> {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       final addressProvider =
           Provider.of<AddressProvider>(context, listen: false);
-      addressProvider.initializePage();
+
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+      if (authProvider.token != null)
+        addressProvider.initializePage(authProvider.token as String);
     });
   }
 

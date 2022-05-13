@@ -80,3 +80,51 @@ class ProductCombination {
         secondValueId, combinationJson["price"], combinationJson["stock"]);
   }
 }
+
+class ProductSelectProperty {
+  int propertyId;
+  String propertyName;
+  List<String> values = [];
+
+  ProductSelectProperty(this.propertyId, this.propertyName, this.values);
+
+  static ProductSelectProperty fromJson(Map<String, dynamic> json) {
+    List<String> values = [];
+    for (var value in json["value"]) {
+      values.add(value);
+    }
+    return ProductSelectProperty(json["id"], json["name"], values);
+  }
+
+  static List<ProductSelectProperty> fromListJson(List<dynamic> listJson) {
+    List<ProductSelectProperty> properties = [];
+    for (var json in listJson) {
+      final property = fromJson(json);
+      properties.add(property);
+    }
+
+    return properties;
+  }
+}
+
+class ProductTypingProperty {
+  int propertyId;
+  String propertyName;
+  String value;
+
+  ProductTypingProperty(this.propertyId, this.propertyName, this.value);
+
+  static ProductTypingProperty fromJson(Map<String, dynamic> json) {
+    return ProductTypingProperty(json["id"], json["name"], json["value"]);
+  }
+
+  static List<ProductTypingProperty> fromListJson(List<dynamic> listJson) {
+    List<ProductTypingProperty> properties = [];
+    for (var json in listJson) {
+      final property = fromJson(json);
+      properties.add(property);
+    }
+
+    return properties;
+  }
+}

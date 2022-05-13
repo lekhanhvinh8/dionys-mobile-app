@@ -1,5 +1,6 @@
 import 'package:dionys/app/models/address.dart';
 import 'package:dionys/app/providers/addressProvider.dart';
+import 'package:dionys/app/providers/authProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class AddressBar extends StatelessWidget {
     var maxWidth = MediaQuery.of(context).size.width;
     final addressProvider = Provider.of<AddressProvider>(context);
     var currentAddress = addressProvider.currentAddress;
+
+    var authProvider = Provider.of<AuthProvider>(context);
 
     return Container(
         color: Colors.white,
@@ -44,7 +47,9 @@ class AddressBar extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 2),
                       child: Text(
-                        address.detail,
+                        (address.detail == null)
+                            ? ""
+                            : address.detail as String,
                         style: TextStyle(color: Colors.grey),
                       ),
                     ),
@@ -68,7 +73,8 @@ class AddressBar extends StatelessWidget {
               child: Column(children: [
                 IconButton(
                   onPressed: () {
-                    addressProvider.removeAddress(address.id);
+                    addressProvider.removeAddress(
+                        address.id, authProvider.token as String);
                   },
                   icon: Icon(
                     Icons.delete,

@@ -9,8 +9,8 @@ class ProductBasicInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productDetailProvider = Provider.of<ProductDetailProvider>(context);
-    var product = productDetailProvider.productDetail;
+    final productProvider = Provider.of<ProductDetailProvider>(context);
+    var product = productProvider.productDetail;
 
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -27,7 +27,12 @@ class ProductBasicInfo extends StatelessWidget {
                     style: TextStyle(
                       fontSize: width * 0.05,
                     )),
-                Text(Formator.formatMoney(100000) + " ₫",
+                Text(
+                    productProvider.productPrice == null
+                        ? ""
+                        : Formator.formatMoney(
+                                productProvider.productPrice as double) +
+                            " ₫",
                     style: TextStyle(
                       fontSize: width * 0.07,
                       color: Colors.red,

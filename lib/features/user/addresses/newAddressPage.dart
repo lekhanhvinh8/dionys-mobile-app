@@ -1,6 +1,7 @@
 import 'package:dionys/app/common/customSwitch.dart';
 import 'package:dionys/app/models/address.dart';
 import 'package:dionys/app/providers/addressProvider.dart';
+import 'package:dionys/app/providers/authProvider.dart';
 import 'package:dionys/features/user/addresses/addressSelection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +60,8 @@ class _NewAddressPageState extends State<NewAddressPage> {
 
     final addressProvider = Provider.of<AddressProvider>(context);
     var currentAddress = addressProvider.currentAddress;
+
+    final authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
         appBar: PreferredSize(
@@ -229,7 +232,8 @@ class _NewAddressPageState extends State<NewAddressPage> {
 
                       if (isValid) {
                         _form.currentState?.save();
-                        addressProvider.addAddress(currentAddress);
+                        addressProvider.addAddress(
+                            currentAddress, authProvider.token as String);
 
                         Navigator.of(context).pop();
                       }

@@ -1,13 +1,62 @@
+import 'package:dionys/app/providers/authProvider.dart';
+import 'package:dionys/app/services/authService.dart';
 import 'package:dionys/features/home/homepage.dart';
 import 'package:dionys/home.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  String email = "";
+  String password = "";
+  Map<String, String?> errors = {
+    "email": null,
+    "password": null,
+  };
+
   void click() {}
+  bool validate() {
+    if (email == "") {
+      setState(() {
+        errors["email"] = "Email không được để trống";
+      });
+    } else {
+      setState(
+        () {
+          errors["email"] = null;
+        },
+      );
+    }
+
+    if (password == "") {
+      setState(() {
+        errors["password"] = "Mật khẩu không được để trống";
+      });
+    } else {
+      setState(
+        () {
+          errors["password"] = null;
+        },
+      );
+    }
+
+    for (var field in errors.values) {
+      if (errors[field] != null) return false;
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
+    var authProvider = Provider.of<AuthProvider>(context, listen: false);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -40,6 +89,7 @@ class Login extends StatelessWidget {
                   child: Container(
                 width: 325,
                 height: 470,
+                margin: EdgeInsets.only(bottom: 20),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -59,7 +109,7 @@ class Login extends StatelessWidget {
                       height: 10,
                     ),
                     const Text(
-                      "Please Login to Your Account",
+                      "Vui lòng đăng nhập vào tài khoản của bạn",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15,
@@ -70,14 +120,19 @@ class Login extends StatelessWidget {
                     ),
                     Container(
                       width: 260,
-                      height: 60,
-                      child: const TextField(
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            email = value;
+                          });
+                        },
                         decoration: InputDecoration(
+                            errorText: errors["email"],
                             suffix: Icon(
                               FontAwesomeIcons.envelope,
                               color: Colors.red,
                             ),
-                            labelText: "Email Address",
+                            labelText: "Email",
                             border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8)),
@@ -89,15 +144,20 @@ class Login extends StatelessWidget {
                     ),
                     Container(
                       width: 260,
-                      height: 60,
-                      child: const TextField(
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            password = value;
+                          });
+                        },
                         obscureText: true,
                         decoration: InputDecoration(
+                            errorText: errors["password"],
                             suffix: Icon(
                               FontAwesomeIcons.eyeSlash,
                               color: Colors.red,
                             ),
-                            labelText: "Password",
+                            labelText: "Mật khẩu",
                             border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8)),
@@ -111,7 +171,6 @@ class Login extends StatelessWidget {
                         children: [
                           TextButton(
                             onPressed: () {
-                              print("pressed !!!");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -119,7 +178,7 @@ class Login extends StatelessWidget {
                               );
                             },
                             child: const Text(
-                              "Forget Password",
+                              "",
                               style: TextStyle(color: Colors.deepOrange),
                             ),
                           )
@@ -127,12 +186,14 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        print("pressed !!!");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const Home()),
-                        );
+                      onTap: () async {
+                        if (validate()) {
+                          await authProvider.login(email, password);
+                        }
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => const Home()),
+                        // );
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -150,7 +211,7 @@ class Login extends StatelessWidget {
                         child: const Padding(
                           padding: EdgeInsets.all(12.0),
                           child: Text(
-                            'Login',
+                            'Đăng nhập',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

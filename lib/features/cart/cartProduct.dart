@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:dionys/app/utils/formator.dart';
 import 'package:dionys/features/cart/cartQuantitySelection.dart';
 import 'package:flutter/material.dart';

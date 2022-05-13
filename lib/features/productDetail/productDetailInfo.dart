@@ -1,4 +1,5 @@
-import 'package:dionys/features/productDetail/productDescriptionInfo.dart';
+import 'package:dionys/features/productDetail/productDescription.dart';
+import 'package:dionys/features/productDetail/productProperties.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailInfo extends StatelessWidget {
@@ -11,8 +12,20 @@ class ProductDetailInfo extends StatelessWidget {
       padding: EdgeInsets.all(10),
       color: const Color.fromRGBO(255, 255, 255, 1),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ProductDescriptionInfo(),
+          Text(
+            "Chi tiết sản phẩm",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 5),
+            child: ProductProperties(),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 5),
+            child: ProductDescription(),
+          )
         ],
       ),
     );

@@ -8,7 +8,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 30, bottom: 10, left: 10, right: 10),
       width: MediaQuery.of(context).size.width,
       height: 80,
       color: const Color.fromRGBO(255, 255, 255, 1),

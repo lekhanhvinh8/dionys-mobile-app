@@ -53,7 +53,7 @@ class SliderCategories extends StatelessWidget {
                                   image: DecorationImage(
                                       image: categories[index].imageUrl == null
                                           ? AssetImage(
-                                                  '/categories/defaultCategoryImage.png')
+                                                  'assets/categories/defaultCategoryImage.png')
                                               as ImageProvider
                                           : NetworkImage(
                                               categories[index].imageUrl),

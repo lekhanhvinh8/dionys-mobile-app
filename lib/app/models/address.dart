@@ -6,11 +6,66 @@ class Address {
   String? provinceName;
   String? districtName;
   String? wardName;
-  String detail = "";
+  String? detail = "";
   bool isDefault = false;
 
   String customerName = "";
   String phoneNumber = "";
+
+  Address(
+      {this.id = 0,
+      this.provinceId,
+      this.districtId,
+      this.wardCode,
+      this.provinceName,
+      this.districtName,
+      this.wardName,
+      this.detail,
+      this.customerName = "",
+      this.phoneNumber = "",
+      this.isDefault = false});
+
+  static fromJson(Map<String, dynamic> json) {
+    return Address(
+        id: json["id"],
+        isDefault: json["isDefault"],
+        provinceId: json["provinceId"],
+        districtId: json["districtId"],
+        wardCode: json["wardCode"],
+        provinceName: json["provinceName"],
+        districtName: json["districtName"],
+        wardName: json["wardName"],
+        detail: json["detail"],
+        customerName: json["customerName"],
+        phoneNumber: json["phoneNumber"]);
+  }
+
+  static fromListJson(List<dynamic> listJson) {
+    List<Address> addresses = [];
+
+    for (var json in listJson) {
+      var address = fromJson(json);
+      addresses.add(address);
+    }
+
+    return addresses;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "provinceId": provinceId,
+      "districtId": districtId,
+      "wardCode": wardCode,
+      "provinceName": provinceName,
+      "districtName": districtName,
+      "wardName": wardName,
+      "detail": detail,
+      "customerName": customerName,
+      "phoneNumber": phoneNumber,
+      "isDefault": isDefault,
+    };
+  }
 }
 
 class District {

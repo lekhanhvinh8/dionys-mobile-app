@@ -39,8 +39,7 @@ class _HomeState extends State<Home> {
   }
 
   void initializeCategories(Categories categoryProvider) async {
-    final response =
-        await CategoriesServices().get("http://localhost:5000/api/category");
+    final response = await CategoriesServices().get();
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,

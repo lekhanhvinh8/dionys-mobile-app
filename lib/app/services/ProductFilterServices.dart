@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dionys/app/config.dart';
 import 'package:dionys/app/models/productCard.dart';
 import 'package:http/http.dart' as http;
 
-const apiUrl = "http://localhost:5000/api/";
-const apiEndpoint = apiUrl + "productFilter/";
+final apiUrl = Config.apiUrl;
+final apiEndpoint = apiUrl + "productFilter/";
 
 class ProductFilterReturn {
   List<ProductCard> products;

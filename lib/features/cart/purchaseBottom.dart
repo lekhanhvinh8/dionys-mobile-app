@@ -21,9 +21,7 @@ class PurchaseBottom extends StatelessWidget {
                   Checkbox(
                     checkColor: Colors.white,
                     value: true,
-                    onChanged: (bool? value) {
-                      print(value);
-                    },
+                    onChanged: (bool? value) {},
                   ),
                   Text("Tất cả"),
                 ],

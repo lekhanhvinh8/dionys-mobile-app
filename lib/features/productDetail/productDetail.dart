@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dionys/app/providers/productDetailProvider.dart';
 import 'package:dionys/features/header/header.dart';
 import 'package:dionys/features/productDetail/carouselImages.dart';
 import 'package:dionys/features/productDetail/productBasicInfo.dart';
 import 'package:dionys/features/productDetail/productDetailInfo.dart';
+import 'package:dionys/features/productDetail/variantsSelection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +32,7 @@ class _ProductDetailState extends State<ProductDetail> {
         Provider.of<ProductDetailProvider>(context, listen: false);
 
     await productDetailProvider.initializePage(widget.productId);
+    await productDetailProvider.reloadProperties(widget.productId);
   }
 
   @override
@@ -38,12 +42,18 @@ class _ProductDetailState extends State<ProductDetail> {
 
     var maxWidth = MediaQuery.of(context).size.width;
 
+    var productReadyToCart = true;
+
+    if (productDetailProvider.productPrice == null ||
+        productDetailProvider.productQuantity == null ||
+        productDetailProvider.selectedQuantity == 0) productReadyToCart = false;
+
     return Scaffold(
-      bottomSheet: InkWell(
+      bottomNavigationBar: InkWell(
         child: Container(
             padding: EdgeInsets.all(10),
             width: maxWidth,
-            color: Colors.red,
+            color: productReadyToCart ? Colors.red : Colors.grey,
             child: Icon(
               Icons.add_shopping_cart,
               size: maxWidth * 0.07,
@@ -60,6 +70,7 @@ class _ProductDetailState extends State<ProductDetail> {
               Header(),
               CarouselImages(),
               ProductBasicInfo(),
+              VariantSelection(),
               ProductDetailInfo(),
             ],
           ),
