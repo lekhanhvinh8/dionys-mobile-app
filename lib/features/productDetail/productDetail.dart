@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dionys/app/providers/authProvider.dart';
+import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/app/providers/productDetailProvider.dart';
 import 'package:dionys/features/header/header.dart';
 import 'package:dionys/features/productDetail/carouselImages.dart';
@@ -35,10 +37,40 @@ class _ProductDetailState extends State<ProductDetail> {
     await productDetailProvider.reloadProperties(widget.productId);
   }
 
+  Future<void> _showMyDialog(String message) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(message),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Đồng ý'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final productDetailProvider = Provider.of<ProductDetailProvider>(context);
     var product = productDetailProvider.productDetail;
+
+    final authProvider = Provider.of<AuthProvider>(context);
+
+    final cartProvider = Provider.of<CartProvider>(context);
 
     var maxWidth = MediaQuery.of(context).size.width;
 
@@ -50,6 +82,20 @@ class _ProductDetailState extends State<ProductDetail> {
 
     return Scaffold(
       bottomNavigationBar: InkWell(
+        onTap: () async {
+          final combinationId =
+              productDetailProvider.getSelectedCombination()!.id;
+          final amount = productDetailProvider.selectedQuantity;
+
+          final message = await cartProvider.addToCart(
+            product!.id,
+            combinationId,
+            amount,
+            authProvider.token as String,
+          );
+
+          if (message != null) _showMyDialog(message as String);
+        },
         child: Container(
             padding: EdgeInsets.all(10),
             width: maxWidth,

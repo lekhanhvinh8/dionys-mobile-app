@@ -19,8 +19,19 @@ class ProductDetailInfo extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Container(
-            margin: EdgeInsets.only(top: 5),
+            margin: EdgeInsets.only(top: 10),
+            child: Divider(
+              thickness: 1,
+            ),
+          ),
+          Container(
             child: ProductProperties(),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            child: Divider(
+              thickness: 1,
+            ),
           ),
           Container(
             margin: EdgeInsets.only(top: 5),

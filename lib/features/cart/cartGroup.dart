@@ -1,12 +1,17 @@
+import 'package:dionys/app/models/cartGroup.dart' as cartGroupModel;
+import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/features/cart/cartProduct.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartGroup extends StatelessWidget {
-  const CartGroup({Key? key}) : super(key: key);
+  cartGroupModel.CartGroup cartGroup;
+  CartGroup({Key? key, required this.cartGroup}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var maxWidth = MediaQuery.of(context).size.width;
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Container(
       child: Column(
@@ -17,7 +22,13 @@ class CartGroup extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(maxWidth * 0.01),
-                  child: Checkbox(value: true, onChanged: (value) {}),
+                  child: Checkbox(
+                      value: cartProvider.isGroupChecked(cartGroup.shopId),
+                      onChanged: (value) {
+                        if (value != null) {
+                          cartProvider.checkCartGroup(cartGroup.shopId, value);
+                        }
+                      }),
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 2),
@@ -29,7 +40,7 @@ class CartGroup extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 2),
-                        child: Text("lighting01.vn"),
+                        child: Text(cartGroup.shopName),
                       ),
                     ],
                   ),
@@ -41,10 +52,9 @@ class CartGroup extends StatelessWidget {
             margin: EdgeInsets.only(top: 1),
             color: const Color.fromRGBO(255, 255, 255, 1),
             child: Column(
-              children: [
-                CartProduct(),
-                CartProduct(),
-              ],
+              children: cartGroup.items
+                  .map((cartItem) => CartProduct(cartItem: cartItem))
+                  .toList(),
             ),
           )
         ],

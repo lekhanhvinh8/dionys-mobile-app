@@ -1,3 +1,5 @@
+import 'package:dionys/app/providers/authProvider.dart';
+import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/app/providers/productsFilterProvider.dart';
 import 'package:dionys/app/services/ProductFilterServices.dart';
 import 'package:dionys/features/cart/cartGroup.dart';
@@ -28,22 +30,14 @@ class _CartPageState extends State<CartPage> {
   }
 
   void initializePage() async {
-    final productsFilterProvider =
-        Provider.of<ProductsFilterProvider>(context, listen: false);
-    productsFilterProvider.resetParams("", 5, 10);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
 
-    var result = await ProductFilterServices()
-        .filter(productsFilterProvider.filterRequestParams);
-
-    productsFilterProvider.loadProducts(result.products, result.totalProducts);
+    //cartProvider.loadCarts(authProvider.token as String);
   }
 
   @override
   Widget build(BuildContext context) {
-    final productsFilterProvider = Provider.of<ProductsFilterProvider>(context);
-    var products = productsFilterProvider.products;
-    var isReload = productsFilterProvider.isReload;
-
     return Scaffold(
         bottomNavigationBar: const PurchaseBottom(),
         appBar: PreferredSize(

@@ -140,4 +140,25 @@ class ProductDetailProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  //getter
+  ProductCombination? getSelectedCombination() {
+    if (productDetail == null) return null;
+
+    final selectedOptions = selectedVariantOptions;
+
+    for (var combination in productDetail!.combinations) {
+      if (selectedOptions.indexWhere(
+              (option) => option.optionId == combination.firstValueId) !=
+          -1) {
+        if (selectedOptions.indexWhere(
+                (option) => option.optionId == combination.secondValueId) !=
+            -1) {
+          return combination;
+        }
+      }
+    }
+
+    return null;
+  }
 }

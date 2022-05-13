@@ -1,4 +1,6 @@
+import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartQuantitySelection extends StatelessWidget {
   const CartQuantitySelection({Key? key}) : super(key: key);
@@ -7,6 +9,7 @@ class CartQuantitySelection extends StatelessWidget {
   Widget build(BuildContext context) {
     int counter = 1;
     var maxWidth = MediaQuery.of(context).size.width;
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
 
     return Container(
       height: maxWidth * 0.07,
@@ -23,7 +26,9 @@ class CartQuantitySelection extends StatelessWidget {
               padding: EdgeInsets.all(2),
               iconSize: 15,
               color: Theme.of(context).primaryColor,
-              onPressed: () {},
+              onPressed: () {
+                //cartProvider.changeItemAmount(cart, itemId, newAmount)
+              },
             ),
           ),
           Container(

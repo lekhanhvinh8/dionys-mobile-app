@@ -1,6 +1,8 @@
+import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/app/utils/formator.dart';
 import 'package:dionys/features/checkout/checkoutPage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PurchaseBottom extends StatelessWidget {
   const PurchaseBottom({Key? key}) : super(key: key);
@@ -8,6 +10,7 @@ class PurchaseBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var maxWidth = MediaQuery.of(context).size.width;
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Container(
       width: maxWidth,
@@ -20,8 +23,12 @@ class PurchaseBottom extends StatelessWidget {
                 children: [
                   Checkbox(
                     checkColor: Colors.white,
-                    value: true,
-                    onChanged: (bool? value) {},
+                    value: cartProvider.isAllChecked(),
+                    onChanged: (bool? value) {
+                      if (value != null) {
+                        cartProvider.checkAll(value);
+                      }
+                    },
                   ),
                   Text("Tất cả"),
                 ],
@@ -37,7 +44,8 @@ class PurchaseBottom extends StatelessWidget {
                       Text("Tổng thanh toán: "),
                       Text(
                         Formator.formatMoney(100000) + "đ",
-                        style: TextStyle(color: Colors.red),
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold),
                       ),
                     ],
                   )),
@@ -54,7 +62,11 @@ class PurchaseBottom extends StatelessWidget {
                 padding: EdgeInsets.all(maxWidth * 0.05),
                 color: Colors.redAccent,
                 child: Center(
-                  child: Text("Mua hàng"),
+                  child: Text(
+                    "Mua hàng",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 )),
           )
         ],
