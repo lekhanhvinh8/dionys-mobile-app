@@ -1,12 +1,15 @@
 import 'package:badges/badges.dart';
+import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/features/cart/cartPage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
     return Container(
       padding: const EdgeInsets.only(top: 30, bottom: 10, left: 10, right: 10),
       width: MediaQuery.of(context).size.width,
@@ -49,7 +52,7 @@ class Header extends StatelessWidget {
               );
             },
             child: Badge(
-              badgeContent: const Text('3'),
+              badgeContent: Text(cartProvider.numberOfItem().toString()),
               child: const Icon(
                 Icons.shopping_cart_outlined,
                 color: Colors.red,

@@ -50,6 +50,7 @@ class CartGroup extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(top: 1),
+            padding: EdgeInsets.only(bottom: 10),
             color: const Color.fromRGBO(255, 255, 255, 1),
             child: Column(
               children: cartGroup.items

@@ -56,12 +56,14 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     var authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final maxHeight = MediaQuery.of(context).size.height;
+    final maxWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: maxHeight,
+          width: maxWidth,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -74,22 +76,20 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: maxHeight * 0.02,
               ),
               SizedBox(
-                height: 200,
+                height: maxHeight * 0.3,
                 width: 300,
                 child: LottieBuilder.asset("assets/lottie/login2.json"),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: maxHeight * 0.02,
               ),
               Expanded(
                   child: Container(
-                width: 325,
-                height: 470,
-                margin: EdgeInsets.only(bottom: 20),
+                width: maxWidth,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -97,16 +97,16 @@ class _LoginState extends State<Login> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: maxHeight * 0.03,
                     ),
                     const Text(
                       "Hello",
                       style:
                           TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: maxHeight * 0.03,
                     ),
                     const Text(
                       "Vui lòng đăng nhập vào tài khoản của bạn",
@@ -115,11 +115,11 @@ class _LoginState extends State<Login> {
                         fontSize: 15,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: maxHeight * 0.03,
                     ),
                     Container(
-                      width: 260,
+                      width: maxWidth * 0.85,
                       child: TextField(
                         onChanged: (value) {
                           setState(() {
@@ -139,11 +139,11 @@ class _LoginState extends State<Login> {
                             )),
                       ),
                     ),
-                    const SizedBox(
-                      height: 12,
+                    SizedBox(
+                      height: maxHeight * 0.03,
                     ),
                     Container(
-                      width: 260,
+                      width: maxWidth * 0.85,
                       child: TextField(
                         onChanged: (value) {
                           setState(() {
@@ -164,26 +164,8 @@ class _LoginState extends State<Login> {
                             )),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 30, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomePage()),
-                              );
-                            },
-                            child: const Text(
-                              "",
-                              style: TextStyle(color: Colors.deepOrange),
-                            ),
-                          )
-                        ],
-                      ),
+                    SizedBox(
+                      height: maxHeight * 0.06,
                     ),
                     GestureDetector(
                       onTap: () async {

@@ -39,7 +39,7 @@ class CartProvider with ChangeNotifier {
     } catch (ex) {}
   }
 
-  changeItemAmount(int itemId, int newAmount) async {
+  Future<void> changeItemAmount(int itemId, int newAmount, String token) async {
     for (var cartGroup in cartGroups) {
       for (var cartItem in cartGroup.items) {
         if (cartItem.id == itemId) {
@@ -47,22 +47,38 @@ class CartProvider with ChangeNotifier {
             return;
           }
           if (newAmount > cartItem.quantity) {
+            await CartService(token)
+                .changeCartAmount(itemId, cartItem.quantity);
+            cartItem.amount = cartItem.quantity;
+            notifyListeners();
             return;
-          }
-
-          try {
+          } else {
+            await CartService(token).changeCartAmount(itemId, newAmount);
             cartItem.amount = newAmount;
             notifyListeners();
-            // await changeCartAmount(cartItem.id, newAmount);
-            // dispatch(itemAmountChanged({
-            //   groupIndex,
-            //   itemIndex,
-            //   newAmount: newAmount,
-            // }));
-          } catch (ex) {}
+            return;
+          }
         }
       }
     }
+  }
+
+  Future<void> removeCart(int cartId, String token) async {
+    final isSuccess = await CartService(token).deleteCart(cartId);
+
+    if (isSuccess) {
+      for (var cartGroup in cartGroups) {
+        for (var cartItem in cartGroup.items) {
+          if (cartItem.id == cartId) {
+            cartGroup.items.remove(cartItem);
+            notifyListeners();
+            return;
+          }
+        }
+      }
+    }
+
+    return;
   }
 
   Future<void> loadCarts(String token) async {
@@ -123,6 +139,15 @@ class CartProvider with ChangeNotifier {
   }
 
   //getter
+  int numberOfItem() {
+    var counter = 0;
+    for (var cartGroup in cartGroups) {
+      counter += cartGroup.items.length;
+    }
+
+    return counter;
+  }
+
   bool isGroupChecked(shopId) {
     final groupIndex = cartGroups.indexWhere((group) => group.shopId == shopId);
     if (groupIndex != -1) {

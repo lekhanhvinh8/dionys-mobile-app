@@ -39,9 +39,10 @@ class PurchaseBottom extends StatelessWidget {
             children: [
               Container(
                   padding: EdgeInsets.all(maxWidth * 0.01),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text("Tổng thanh toán: "),
+                      Text("Tổng thanh toán"),
                       Text(
                         Formator.formatMoney(100000) + "đ",
                         style: TextStyle(

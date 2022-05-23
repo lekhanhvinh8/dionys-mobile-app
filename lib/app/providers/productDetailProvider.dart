@@ -151,9 +151,13 @@ class ProductDetailProvider with ChangeNotifier {
       if (selectedOptions.indexWhere(
               (option) => option.optionId == combination.firstValueId) !=
           -1) {
-        if (selectedOptions.indexWhere(
-                (option) => option.optionId == combination.secondValueId) !=
-            -1) {
+        if (combination.secondValueId != null) {
+          if (selectedOptions.indexWhere(
+                  (option) => option.optionId == combination.secondValueId) !=
+              -1) {
+            return combination;
+          }
+        } else {
           return combination;
         }
       }

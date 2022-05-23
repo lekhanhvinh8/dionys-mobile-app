@@ -59,6 +59,40 @@ class CartService {
 
     return AddToCartResponse(errorMessage: "Thêm vào giỏ hàng thất bại");
   }
+
+  Future<bool> deleteCart(int cartId) async {
+    final uri = Uri.parse(apiEndpoint + "/" + cartId.toString());
+
+    final response = await http.delete(
+      uri,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> changeCartAmount(int cartId, int newAmount) async {
+    final uri =
+        Uri.parse(apiEndpoint + "/updateAmount").replace(queryParameters: {
+      "cartId": cartId.toString(),
+      "amount": newAmount.toString(),
+    });
+
+    final response = await http.put(
+      uri,
+      body: null,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 }
 
 class AddToCartResponse {

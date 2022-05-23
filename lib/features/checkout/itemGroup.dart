@@ -54,6 +54,38 @@ class ItemGroup extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.all(maxWidth * 0.025),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.local_shipping_outlined,
+                      color: Colors.blue,
+                    ),
+                    Row(
+                      children: [
+                        Text("Phí vận chuyển: "),
+                        Text(
+                          "70.140đ",
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text("Giao hàng dự kiến vào: 30/04/2022"),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(maxWidth * 0.025),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

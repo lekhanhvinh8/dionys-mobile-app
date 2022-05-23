@@ -1,4 +1,5 @@
 import 'package:dionys/app/models/cartGroup.dart';
+import 'package:dionys/app/providers/authProvider.dart';
 import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/app/utils/formator.dart';
 import 'package:dionys/features/cart/cartQuantitySelection.dart';
@@ -14,8 +15,10 @@ class CartProduct extends StatelessWidget {
     var maxWidth = MediaQuery.of(context).size.width;
 
     var cartProvider = Provider.of<CartProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Container(
+      margin: EdgeInsets.only(top: 5),
       child: Row(
         children: [
           Container(
@@ -71,9 +74,26 @@ class CartProduct extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 7),
-                child: CartQuantitySelection(),
-              ),
+                  margin: EdgeInsets.only(top: 7),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CartQuantitySelection(
+                        itemId: cartItem.id,
+                        counter: cartItem.amount,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.remove_circle_outline_rounded,
+                          color: Colors.red,
+                        ),
+                        onPressed: () async {
+                          await cartProvider.removeCart(
+                              cartItem.id, authProvider.token as String);
+                        },
+                      )
+                    ],
+                  )),
             ]),
           )),
         ],

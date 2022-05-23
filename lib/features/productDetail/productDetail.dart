@@ -83,8 +83,9 @@ class _ProductDetailState extends State<ProductDetail> {
     return Scaffold(
       bottomNavigationBar: InkWell(
         onTap: () async {
-          final combinationId =
-              productDetailProvider.getSelectedCombination()!.id;
+          final combination = productDetailProvider.getSelectedCombination();
+          final combinationId = (combination == null) ? null : combination.id;
+
           final amount = productDetailProvider.selectedQuantity;
 
           final message = await cartProvider.addToCart(
