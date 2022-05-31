@@ -1,12 +1,33 @@
+import 'package:dionys/app/models/cartGroup.dart';
+import 'package:dionys/app/providers/checkoutProvider.dart';
+import 'package:dionys/app/utils/formator.dart';
 import 'package:dionys/features/checkout/item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ItemGroup extends StatelessWidget {
-  const ItemGroup({Key? key}) : super(key: key);
+  CartGroup cartGroup;
+  ItemGroup({Key? key, required this.cartGroup}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var maxWidth = MediaQuery.of(context).size.width;
+    final checkoutProvider = Provider.of<CheckoutProvider>(context);
+
+    final expectedDeliveryTimeIndex = checkoutProvider.expectedDeliveryTimes
+        .indexWhere((time) => time.shopId == cartGroup.shopId);
+    final shippingCostIndex = checkoutProvider.shippingCosts
+        .indexWhere((cost) => cost.shopId == cartGroup.shopId);
+
+    final expectedDeliveryTime = expectedDeliveryTimeIndex == -1
+        ? ""
+        : checkoutProvider
+            .expectedDeliveryTimes[expectedDeliveryTimeIndex].time;
+
+    double zero = 0;
+    final double? shippingCost = (shippingCostIndex == -1)
+        ? zero
+        : checkoutProvider.shippingCosts[shippingCostIndex].cost;
 
     return Container(
       child: Column(
@@ -20,13 +41,13 @@ class ItemGroup extends StatelessWidget {
                   margin: EdgeInsets.only(left: 2),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.store_outlined,
                         color: Colors.red,
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 5),
-                        child: Text("lighting01.vn"),
+                        child: Text(cartGroup.shopName),
                       ),
                     ],
                   ),
@@ -36,20 +57,15 @@ class ItemGroup extends StatelessWidget {
           ),
           Container(
             color: const Color.fromRGBO(255, 255, 255, 1),
-            margin: EdgeInsets.only(top: 3),
+            margin: const EdgeInsets.only(top: 3),
             child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 3),
-                  color: Color.fromRGBO(245, 245, 245, 1),
-                  child: Item(),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 3),
-                  color: Color.fromRGBO(245, 245, 245, 1),
-                  child: Item(),
-                )
-              ],
+              children: cartGroup.items
+                  .map((item) => Container(
+                        margin: const EdgeInsets.only(bottom: 3),
+                        color: const Color.fromRGBO(245, 245, 245, 1),
+                        child: Item(cartItem: item),
+                      ))
+                  .toList(),
             ),
           ),
           Container(
@@ -68,7 +84,8 @@ class ItemGroup extends StatelessWidget {
                       children: [
                         Text("Phí vận chuyển: "),
                         Text(
-                          "70.140đ",
+                          Formator.formatMoney(
+                              shippingCost == null ? 0 : shippingCost),
                           style: TextStyle(fontWeight: FontWeight.w700),
                         )
                       ],
@@ -78,7 +95,10 @@ class ItemGroup extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Giao hàng dự kiến vào: 30/04/2022"),
+                    Text("Giao hàng dự kiến vào: " +
+                        (expectedDeliveryTime == null
+                            ? ""
+                            : expectedDeliveryTime.split(" ")[0])),
                   ],
                 ),
               ],
@@ -90,7 +110,9 @@ class ItemGroup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text("Tổng số tiền: "),
-                Text("4.793.140đ",
+                Text(
+                    Formator.formatMoney(
+                        checkoutProvider.getTotalCostOfGroup(cartGroup)),
                     style: TextStyle(
                         fontWeight: FontWeight.w700, color: Colors.red)),
               ],

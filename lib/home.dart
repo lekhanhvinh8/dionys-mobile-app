@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:dionys/app/models/category.dart';
 import 'package:dionys/app/providers/categories.dart';
 import 'package:dionys/app/services/categoriesService.dart';
+import 'package:dionys/features/header/header.dart';
 import 'package:dionys/features/home/homepage.dart';
+import 'package:dionys/features/purchase/purchasePage.dart';
 import 'package:dionys/features/user/userPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,15 +17,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: Đơn mua',
-      style: optionStyle,
-    ),
+    PurchasePage(),
     UserPage(),
   ];
 
@@ -64,6 +63,7 @@ class _HomeState extends State<Home> {
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: <Widget>[
+            Header(),
             Expanded(child: _widgetOptions.elementAt(_selectedIndex))
           ],
         ),

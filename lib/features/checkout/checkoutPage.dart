@@ -1,14 +1,57 @@
+import 'package:dionys/app/providers/addressProvider.dart';
+import 'package:dionys/app/providers/authProvider.dart';
+import 'package:dionys/app/providers/cartProvider.dart';
+import 'package:dionys/app/providers/checkoutProvider.dart';
+import 'package:dionys/app/utils/formator.dart';
 import 'package:dionys/features/checkout/addressSelection.dart';
 import 'package:dionys/features/checkout/itemArea.dart';
+import 'package:dionys/features/checkout/paypalPayment.dart';
 import 'package:dionys/features/header/header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutPage extends StatefulWidget {
   const CheckoutPage({Key? key}) : super(key: key);
+
+  @override
+  State<CheckoutPage> createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      initializePage();
+    });
+  }
+
+  void initializePage() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final addressProvider =
+        Provider.of<AddressProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final checkoutProvider =
+        Provider.of<CheckoutProvider>(context, listen: false);
+
+    checkoutProvider.initializeCheckoutPage(addressProvider.addresses,
+        cartProvider.cartGroups, authProvider.token as String);
+  }
 
   @override
   Widget build(BuildContext context) {
     var maxWidth = MediaQuery.of(context).size.width;
+    final checkoutProvider = Provider.of<CheckoutProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    if (checkoutProvider.pageReloading) {
+      EasyLoading.show(status: 'đang tải...');
+    } else {
+      EasyLoading.dismiss();
+    }
 
     return Scaffold(
         appBar: PreferredSize(
@@ -31,7 +74,7 @@ class CheckoutPage extends StatelessWidget {
             )),
         bottomNavigationBar: Container(
             color: Colors.white,
-            height: maxWidth * 0.15,
+            height: maxWidth * 0.2,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -42,22 +85,48 @@ class CheckoutPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text("Tổng thanh toán"),
-                      Text("4.793.140đ",
+                      Text(
+                          Formator.formatMoney(checkoutProvider
+                                  .getTotalCost(cartProvider.cartGroups)) +
+                              "đ",
                           style: TextStyle(
                               fontWeight: FontWeight.w700, color: Colors.red)),
                     ],
                   ),
                 ),
-                Container(
-                    padding: EdgeInsets.all(maxWidth * 0.025),
-                    color: Colors.red,
-                    child: Center(
-                      child: Text(
-                        "Đặt hàng",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w700),
+                InkWell(
+                  onTap: () {
+                    EasyLoading.dismiss();
+
+                    final List<int> checkedItemIds = [];
+
+                    for (var group in cartProvider.cartGroups) {
+                      for (var item in group.items) {
+                        if (item.checked) {
+                          checkedItemIds.add(item.id);
+                        }
+                      }
+                    }
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => PaypalPayment(
+                            checkedItemIds,
+                            checkoutProvider.selectedAddressId!),
                       ),
-                    ))
+                    );
+                  },
+                  child: Container(
+                      padding: EdgeInsets.all(maxWidth * 0.025),
+                      color: Colors.red,
+                      child: Center(
+                        child: Text(
+                          "Đặt hàng",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w700),
+                        ),
+                      )),
+                )
               ],
             )),
         body: Container(

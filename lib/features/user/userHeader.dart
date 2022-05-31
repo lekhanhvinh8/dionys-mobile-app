@@ -11,7 +11,6 @@ class UserHeader extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Header(),
           Container(
             margin: EdgeInsets.only(top: maxWidth * 0.02),
             padding: EdgeInsets.all(maxWidth * 0.02),

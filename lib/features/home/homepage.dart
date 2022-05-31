@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
-          Header(),
           SliderCategories(),
           Expanded(
               child: Column(children: [

@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: maxHeight * 0.3,
                 width: 300,
-                child: LottieBuilder.asset("assets/lottie/login2.json"),
+                // child: LottieBuilder.asset("assets/lottie/login2.json"),
               ),
               SizedBox(
                 height: maxHeight * 0.02,

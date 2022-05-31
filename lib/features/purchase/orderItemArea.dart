@@ -1,13 +1,20 @@
-import 'package:dionys/app/models/cartGroup.dart';
+import 'package:dionys/app/models/orderItem.dart';
 import 'package:dionys/app/utils/formator.dart';
 import 'package:flutter/material.dart';
 
-class Item extends StatelessWidget {
-  CartItem cartItem;
-  Item({Key? key, required this.cartItem}) : super(key: key);
+class OrderItemArea extends StatefulWidget {
+  OrderItem orderItem;
+  OrderItemArea({Key? key, required this.orderItem}) : super(key: key);
 
   @override
+  State<OrderItemArea> createState() => _OrderItemAreaState();
+}
+
+class _OrderItemAreaState extends State<OrderItemArea> {
+  @override
   Widget build(BuildContext context) {
+    final orderItem = widget.orderItem;
+
     var maxWidth = MediaQuery.of(context).size.width;
     return Container(
       child: Column(
@@ -23,10 +30,10 @@ class Item extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: (cartItem.avatarUrl == "")
+                          image: (orderItem.itemAvatarUrl == "")
                               ? const AssetImage('products/tainghe.jpg')
                                   as ImageProvider
-                              : NetworkImage(cartItem.avatarUrl),
+                              : NetworkImage(orderItem.itemAvatarUrl),
                           fit: BoxFit.cover),
                     ),
                   ),
@@ -38,7 +45,7 @@ class Item extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        cartItem.name,
+                        orderItem.name,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontFamily: "RobotoMono"),
                       ),
@@ -46,10 +53,10 @@ class Item extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            Formator.formatMoney(cartItem.price) + "đ",
+                            Formator.formatMoney(orderItem.price) + "đ",
                             style: TextStyle(color: Colors.red),
                           ),
-                          Text("x" + cartItem.amount.toString())
+                          Text("x" + orderItem.amount.toString())
                         ],
                       )
                     ],

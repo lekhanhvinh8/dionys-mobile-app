@@ -23,10 +23,6 @@ class VariantSelection extends StatelessWidget {
     final variants = productProvider.productDetail?.variants;
     final selectedOptions = productProvider.selectedVariantOptions;
 
-    // for (var item in selectedOptions) {
-    //   print(item.variantId.toString() + " " + item.optionId.toString());
-    // }
-
     return Container(
       color: Colors.white,
       margin: EdgeInsets.only(top: 10),
