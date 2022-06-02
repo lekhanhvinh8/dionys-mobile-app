@@ -14,18 +14,20 @@ class UserPage extends StatelessWidget {
         body: SizedBox(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          UserHeader(),
-          Container(
-            margin: EdgeInsets.only(top: maxWidth * 0.02),
-            child: PurchaseArea(),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: maxWidth * 0.02),
-            child: Navigations(),
-          )
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            UserHeader(),
+            Container(
+              margin: EdgeInsets.only(top: maxWidth * 0.02),
+              child: PurchaseArea(),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: maxWidth * 0.02),
+              child: Navigations(),
+            )
+          ],
+        ),
       ),
     ));
   }

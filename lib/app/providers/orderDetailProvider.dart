@@ -1,4 +1,4 @@
-import 'package:dionys/app/models/orderDetai.dart';
+import 'package:dionys/app/models/orderDetail.dart';
 import 'package:dionys/app/services/orderService.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -15,6 +15,27 @@ class RatingItem {
 
 class OrderDetailProvider with ChangeNotifier {
   OrderDetail? orderDetail;
+  List<RatingItem> ratings = [];
+
+  void updateRating(int itemId, double stars) {
+    for (var rating in ratings) {
+      if (rating.itemId == itemId) {
+        rating.stars = stars.toInt();
+        notifyListeners();
+        break;
+      }
+    }
+  }
+
+  void updateContent(int itemId, String content) {
+    for (var rating in ratings) {
+      if (rating.itemId == itemId) {
+        rating.content = content;
+        notifyListeners();
+        break;
+      }
+    }
+  }
 
   Future<void> reloadOrderDetail(String orderId, String token) async {
     final orderDetail = await OrderService(token).getOrderDetai(orderId);
@@ -33,7 +54,7 @@ class OrderDetailProvider with ChangeNotifier {
     }
 
     this.orderDetail = orderDetail;
-    ratingItems = ratingItems;
+    ratings = ratingItems;
 
     notifyListeners();
   }

@@ -36,6 +36,17 @@ class AddressBar extends StatelessWidget {
                           " [Mặc Định]",
                           style: TextStyle(color: Colors.red),
                         )
+                      else
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 13),
+                          ),
+                          onPressed: () {
+                            addressProvider.setDefaultAddress(
+                                address.id, authProvider.token as String);
+                          },
+                          child: const Text('Đặt làm mặc định'),
+                        )
                     ]),
                     Container(
                       margin: EdgeInsets.only(top: 10),

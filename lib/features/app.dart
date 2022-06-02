@@ -58,7 +58,7 @@ class _AppState extends State<App> {
     if (authProvider.isAuth) {
       //return Home();
       //return AddressesPage();
-      //return ProductDetail(productId: 5);
+      return ProductDetail(productId: 5);
       //home: AddressSelection(),
       //home: AddressesPage(),
       //home: NewAddressPage(),
@@ -71,7 +71,7 @@ class _AppState extends State<App> {
       //return const CartPage();
       // home: const CheckoutPage(),
       //return PurchasePage();
-      return OrderDetail(orderId: "FEUTLPVECC");
+      //return OrderDetail(orderId: "FEUTLPVECC");
     }
 
     return Login();

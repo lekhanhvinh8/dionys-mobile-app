@@ -7,6 +7,7 @@ import 'package:dionys/features/header/header.dart';
 import 'package:dionys/features/productDetail/carouselImages.dart';
 import 'package:dionys/features/productDetail/productBasicInfo.dart';
 import 'package:dionys/features/productDetail/productDetailInfo.dart';
+import 'package:dionys/features/productDetail/productRatings.dart';
 import 'package:dionys/features/productDetail/variantsSelection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
     await productDetailProvider.initializePage(widget.productId);
     await productDetailProvider.reloadProperties(widget.productId);
+    await productDetailProvider.reloadRatings(widget.productId);
   }
 
   Future<void> _showMyDialog(String message) async {
@@ -113,12 +115,15 @@ class _ProductDetailState extends State<ProductDetail> {
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               Header(),
               CarouselImages(),
               ProductBasicInfo(),
               VariantSelection(),
               ProductDetailInfo(),
+              ProductRatings(
+                productId: widget.productId,
+              ),
             ],
           ),
         ),

@@ -14,6 +14,13 @@ class PropertyReturnModel {
   PropertyReturnModel(this.selectProperties, this.typingProperties);
 }
 
+class ProductRatingResponse {
+  List<ProductRating> productsRatings;
+  int totalRatings;
+
+  ProductRatingResponse(this.productsRatings, this.totalRatings);
+}
+
 class ProductDetailService {
   Future<ProductDetail> get(int id) async {
     final uri = Uri.parse(apiEndpoint + id.toString());
@@ -48,5 +55,26 @@ class ProductDetailService {
     }
 
     return null;
+  }
+
+  Future<ProductRatingResponse> getRatings(int productId,
+      {int pageSize = 1, int pageNumber = 0}) async {
+    final uri = Uri.parse(apiEndpoint + "ratings").replace(queryParameters: {
+      "productId": productId.toString(),
+      "pageSize": pageSize.toString(),
+      "pageNumber": pageNumber.toString(),
+    });
+
+    final response = await http.get(uri);
+    final json = jsonDecode(response.body);
+
+    final ratingsJson = json["ratings"];
+    int totalRatings = json["totalRatings"];
+
+    List<ProductRating> ratings = (ratingsJson as List)
+        .map((ratingJson) => ProductRating.fromJson(ratingJson))
+        .toList();
+
+    return ProductRatingResponse(ratings, totalRatings);
   }
 }

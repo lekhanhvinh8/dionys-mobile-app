@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:dionys/app/config.dart';
-import 'package:dionys/app/models/orderDetai.dart';
+import 'package:dionys/app/models/orderDetail.dart';
 import 'package:dionys/app/models/orderItem.dart';
+import 'package:dionys/app/providers/orderDetailProvider.dart';
 import 'package:http/http.dart' as http;
 
 final apiUrl = Config.apiUrl;
@@ -124,5 +125,23 @@ class OrderService {
     final json = jsonDecode(response.body);
 
     return OrderDetail.fromJson(json);
+  }
+
+  Future<bool> rate(List<RatingItem> ratingItems) async {
+    List<Map<String, String>> ratings = [];
+    for (var ratingItem in ratingItems) {
+      ratings.add({
+        "orderItemId": ratingItem.itemId.toString(),
+        "stars": ratingItem.stars.toString(),
+        "content": ratingItem.content,
+      });
+    }
+
+    final uri = Uri.parse(apiEndpoint + "Rating");
+    final result = await http.post(uri,
+        headers: requestHeaders, body: json.encode({"ratings": ratings}));
+
+    if (result.statusCode == 200) return true;
+    return false;
   }
 }

@@ -50,6 +50,7 @@ class _PurchasePageState extends State<PurchasePage>
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final orders = purchaseProvider.orders;
     final tabs = purchaseProvider.tabs;
+    final ordersReloading = purchaseProvider.ordersReloading;
 
     return Scaffold(
       body: Container(
@@ -80,14 +81,32 @@ class _PurchasePageState extends State<PurchasePage>
               ),
             ),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: tabs
-                    .map(
-                      (tab) => PurchaseArea(tab: tab),
+              child: ordersReloading
+                  ? Container(
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(bottom: 3),
+                        child: const CircularProgressIndicator(
+                          backgroundColor: Colors.grey,
+                        ),
+                        color: const Color.fromRGBO(240, 240, 240, 1),
+                      ),
                     )
-                    .toList(),
-              ),
+                  : (purchaseProvider.pageNumber *
+                              purchaseProvider.pageNumber >=
+                          purchaseProvider.totalOrders)
+                      ? Container(
+                          alignment: Alignment.center,
+                          child: Text("Không có đơn hàng nào"),
+                        )
+                      : TabBarView(
+                          controller: _tabController,
+                          children: tabs
+                              .map(
+                                (tab) => PurchaseArea(tab: tab),
+                              )
+                              .toList(),
+                        ),
             )
           ],
         ),

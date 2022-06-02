@@ -60,4 +60,15 @@ class UserService {
 
     return false;
   }
+
+  Future<bool> setDefaultAddress(int addressId) async {
+    final uri =
+        Uri.parse(apiEndpoint + "/setDefaultAddress/" + addressId.toString());
+    final result = await http.post(uri, headers: requestHeaders);
+
+    if (result.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 }

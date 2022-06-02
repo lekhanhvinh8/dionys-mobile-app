@@ -19,8 +19,8 @@ class OrderDetail {
   String failedAt;
   String? paymentDate;
   bool isPaid;
-  int total;
-  int shipFee;
+  double total;
+  double shipFee;
   String deliveryAddress;
   String pickupAddress;
   String paymentType;
@@ -104,7 +104,7 @@ class OrderItem {
   int productId;
   int? combinationId;
   int amount;
-  int price;
+  double price;
   String name;
   String image;
   String variant;

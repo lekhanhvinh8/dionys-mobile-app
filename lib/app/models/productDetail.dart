@@ -128,3 +128,27 @@ class ProductTypingProperty {
     return properties;
   }
 }
+
+class ProductRating {
+  int id;
+  String createdAt;
+  int stars;
+  String content;
+  int orderItemId;
+  String customerEmail;
+  String customerAvatarUrl;
+
+  ProductRating(this.id, this.createdAt, this.stars, this.content,
+      this.orderItemId, this.customerEmail, this.customerAvatarUrl);
+
+  static ProductRating fromJson(Map<String, dynamic> json) {
+    return ProductRating(
+        json["id"],
+        json["createdAt"],
+        json["stars"],
+        json["content"],
+        json["orderItemId"],
+        json["customerEmail"],
+        json["customerAvatarUrl"]);
+  }
+}

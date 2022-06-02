@@ -27,6 +27,16 @@ class AddressProvider with ChangeNotifier {
 
   initializePage(String token) async {
     addresses = await UserService(token).getAddresses();
+    for (var address in addresses) {
+      if (address.isDefault) {
+        for (var address1 in addresses) {
+          address1.isDefault = false;
+        }
+
+        address.isDefault = true;
+        break;
+      }
+    }
     notifyListeners();
   }
 
@@ -61,9 +71,33 @@ class AddressProvider with ChangeNotifier {
   }
 
   removeAddress(int id, String token) async {
-    await UserService(token).removeAddress(id);
-    addresses.removeWhere((address) => address.id == id);
-    notifyListeners();
+    final result = await UserService(token).removeAddress(id);
+
+    if (result) {
+      addresses.removeWhere((address) => address.id == id);
+      notifyListeners();
+      return true;
+    }
+
+    return false;
+  }
+
+  setDefaultAddress(int id, String token) async {
+    final result = await UserService(token).setDefaultAddress(id);
+    if (result) {
+      for (var address in addresses) {
+        if (address.id == id) {
+          address.isDefault = true;
+        } else {
+          address.isDefault = false;
+        }
+      }
+
+      notifyListeners();
+      return true;
+    }
+
+    return false;
   }
 
   removeOneSelection() {

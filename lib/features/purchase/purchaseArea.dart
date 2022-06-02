@@ -15,6 +15,7 @@ class PurchaseArea extends StatefulWidget {
 
 class _PurchaseAreaState extends State<PurchaseArea> {
   final ScrollController _scrollController = ScrollController();
+  bool canLoadMore = false;
 
   @override
   void initState() {
@@ -28,10 +29,6 @@ class _PurchaseAreaState extends State<PurchaseArea> {
     final orders = purchaseProvider.orders;
     final isLoadMore = purchaseProvider.isLoadMore;
 
-    final canLoadMore =
-        purchaseProvider.pageSize * purchaseProvider.pageNumber <
-            purchaseProvider.totalOrders;
-
     return Container(
       child: Column(
         children: [
@@ -42,7 +39,15 @@ class _PurchaseAreaState extends State<PurchaseArea> {
                   if (_scrollController.position.pixels ==
                       _scrollController.position.maxScrollExtent) {
                     if (!isLoadMore) {
-                      if (canLoadMore) {
+                      setState(() {
+                        canLoadMore = purchaseProvider.pageSize *
+                                purchaseProvider.pageNumber <
+                            purchaseProvider.totalOrders;
+                      });
+
+                      if (purchaseProvider.pageSize *
+                              purchaseProvider.pageNumber <
+                          purchaseProvider.totalOrders) {
                         purchaseProvider.loadMoreOrders(
                             authProvider.token as String,
                             widget.tab.statusCode);

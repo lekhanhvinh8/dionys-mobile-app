@@ -19,6 +19,12 @@ class ProductDetailProvider with ChangeNotifier {
   List<ProductSelectProperty> selectProperties = [];
   List<ProductTypingProperty> typingProperties = [];
 
+  List<ProductRating> ratings = [];
+  int ratingPageSize = 2;
+  int ratingPageNumber = 0;
+  int totalRatings = 0;
+  bool isLoadMoreRatings = false;
+
   Future<void> initializePage(int productId) async {
     var product = await ProductDetailService().get(productId);
     productDetail = product;
@@ -26,6 +32,9 @@ class ProductDetailProvider with ChangeNotifier {
     selectedQuantity = 0;
     productPrice = null;
     productQuantity = null;
+
+    ratingPageNumber = 0;
+    totalRatings = 0;
 
     selectedVariantOptions = product.variants
         .map((variant) =>
@@ -141,7 +150,46 @@ class ProductDetailProvider with ChangeNotifier {
     }
   }
 
+  Future<void> reloadRatings(int productId) async {
+    if (productId != 0) {
+      final response = await ProductDetailService().getRatings(
+        productId,
+        pageSize: ratingPageSize,
+        pageNumber: ratingPageNumber,
+      );
+
+      ratings = response.productsRatings;
+      totalRatings = response.totalRatings;
+
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadMoreRatings(int productId) async {
+    if (!canLoadMoreRatings()) return;
+
+    ratingPageNumber++;
+    isLoadMoreRatings = true;
+    notifyListeners();
+
+    final response = await ProductDetailService().getRatings(
+      productId,
+      pageSize: ratingPageSize,
+      pageNumber: ratingPageNumber,
+    );
+
+    ratings.addAll(response.productsRatings);
+    totalRatings = response.totalRatings;
+
+    isLoadMoreRatings = false;
+    notifyListeners();
+  }
+
   //getter
+  bool canLoadMoreRatings() {
+    return (ratingPageNumber + 1) * ratingPageSize < totalRatings;
+  }
+
   ProductCombination? getSelectedCombination() {
     if (productDetail == null) return null;
 
