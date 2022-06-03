@@ -98,6 +98,7 @@ class OrderService {
       "pageNumber": pageNumber.toString(),
       "searchKey": searchKey,
     };
+
     if (statusCode != null) {
       parameters["statusCode"] = statusCode;
     }
@@ -108,9 +109,11 @@ class OrderService {
     final response = await http.get(uri, headers: requestHeaders);
     final json = jsonDecode(response.body);
 
-    List<OrderGroup> orderGroups = (json["orders"] as List)
-        .map((orderJson) => OrderGroup.fromJson(orderJson))
-        .toList();
+    List<OrderGroup> orderGroups = [];
+
+    for (var orderJson in json["orders"] as List) {
+      orderGroups.add(OrderGroup.fromJson(orderJson));
+    }
 
     return OrderFilterResponse(orderGroups, json["totalOrders"]);
   }

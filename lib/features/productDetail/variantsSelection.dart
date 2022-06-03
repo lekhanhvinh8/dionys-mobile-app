@@ -1,5 +1,6 @@
 import 'package:dionys/app/models/productVariant.dart';
 import 'package:dionys/app/providers/productDetailProvider.dart';
+import 'package:dionys/app/utils/formator.dart';
 import 'package:dionys/features/productDetail/quantitySelection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +58,7 @@ class VariantSelection extends StatelessWidget {
                                 margin: EdgeInsets.only(bottom: 5),
                                 child: Text(variant.name),
                               ),
-                              Row(
+                              Wrap(
                                 children: variant.options
                                     .map((option) => Container(
                                           margin: EdgeInsets.only(right: 5),
@@ -69,6 +70,7 @@ class VariantSelection extends StatelessWidget {
                                                         variant.id, option.id);
                                               },
                                               child: Row(
+                                                mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   Text(option.name),
                                                   if (isContain(selectedOptions,
@@ -105,7 +107,8 @@ class VariantSelection extends StatelessWidget {
                     "Kho hàng: " +
                         ((productProvider.productQuantity == null)
                             ? "0"
-                            : productProvider.productQuantity.toString()),
+                            : Formator.formatMoney(
+                                productProvider.productQuantity!)),
                   ))
             ]),
           ),

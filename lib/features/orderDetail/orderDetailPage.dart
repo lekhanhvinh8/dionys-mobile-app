@@ -75,6 +75,7 @@ class _OrderDetailState extends State<OrderDetail> {
           ? null
           : Container(
               margin: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.all(10),
               child: Row(
                 children: [
                   Expanded(
@@ -123,6 +124,7 @@ class _OrderDetailState extends State<OrderDetail> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 10),
+                padding: EdgeInsets.all(10),
                 color: Colors.white,
                 child: Row(
                   children: [
@@ -135,6 +137,7 @@ class _OrderDetailState extends State<OrderDetail> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(10),
                 margin: EdgeInsets.only(top: 10),
                 color: Colors.white,
                 child: Row(
@@ -148,6 +151,7 @@ class _OrderDetailState extends State<OrderDetail> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(10),
                 margin: EdgeInsets.only(top: 10),
                 color: Colors.white,
                 child: Row(
@@ -161,6 +165,7 @@ class _OrderDetailState extends State<OrderDetail> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(10),
                 margin: EdgeInsets.only(top: 10),
                 color: Colors.white,
                 child: Column(
@@ -195,29 +200,41 @@ class _OrderDetailState extends State<OrderDetail> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Tổng giá: "),
-                              Text(Formator.formatMoney(
-                                      order == null ? 0 : order.total) +
-                                  "đ")
+                              Text(
+                                Formator.formatMoney(
+                                        order == null ? 0 : order.total) +
+                                    "đ",
+                                style: TextStyle(color: Colors.red),
+                              )
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Phí vận chuyển: "),
-                              Text(Formator.formatMoney(
-                                      order == null ? 0 : order.shipFee) +
-                                  "đ")
-                            ],
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Phí vận chuyển: "),
+                                Text(Formator.formatMoney(
+                                        order == null ? 0 : order.shipFee) +
+                                    "đ")
+                              ],
+                            ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Tổng tính: "),
-                              Text(Formator.formatMoney(order == null
-                                      ? 0
-                                      : order.total + order.shipFee) +
-                                  "đ")
-                            ],
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Tổng tính: "),
+                                Text(
+                                  Formator.formatMoney(order == null
+                                          ? 0
+                                          : order.total + order.shipFee) +
+                                      "đ",
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),

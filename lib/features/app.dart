@@ -5,6 +5,7 @@ import 'package:dionys/app/providers/authProvider.dart';
 import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/features/auth/login.dart';
 import 'package:dionys/features/cart/cartPage.dart';
+import 'package:dionys/features/checkout/thankyouPage.dart';
 import 'package:dionys/features/orderDetail/orderDetailPage.dart';
 import 'package:dionys/features/productDetail/productDetail.dart';
 import 'package:dionys/features/user/addresses/addressesPage.dart';
@@ -56,9 +57,9 @@ class _AppState extends State<App> {
     if (authProvider.isLoading) return Container();
 
     if (authProvider.isAuth) {
-      //return Home();
+      return Home();
       //return AddressesPage();
-      return ProductDetail(productId: 5);
+      //return ProductDetail(productId: 5);
       //home: AddressSelection(),
       //home: AddressesPage(),
       //home: NewAddressPage(),
@@ -72,6 +73,7 @@ class _AppState extends State<App> {
       // home: const CheckoutPage(),
       //return PurchasePage();
       //return OrderDetail(orderId: "FEUTLPVECC");
+      //return ThankYouPage();
     }
 
     return Login();

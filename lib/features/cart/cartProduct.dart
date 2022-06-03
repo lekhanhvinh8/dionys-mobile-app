@@ -84,7 +84,7 @@ class CartProduct extends StatelessWidget {
                       ),
                       IconButton(
                         icon: Icon(
-                          Icons.remove_circle_outline_rounded,
+                          Icons.delete_outline_rounded,
                           color: Colors.red,
                         ),
                         onPressed: () async {

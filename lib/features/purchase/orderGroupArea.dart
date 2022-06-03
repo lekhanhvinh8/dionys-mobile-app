@@ -48,8 +48,21 @@ class _OrderGroupAreaState extends State<OrderGroupArea> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(orderGroup.shopName),
-              Text(step == null ? "" : step),
+              Row(children: [
+                Icon(
+                  Icons.store_outlined,
+                  color: Colors.red,
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 3),
+                    child: Text(orderGroup.shopName))
+              ]),
+              Text(
+                step == null ? "" : step,
+                style: TextStyle(
+                    color: Colors.redAccent.shade700,
+                    fontWeight: FontWeight.bold),
+              ),
             ],
           ),
           Column(
@@ -79,7 +92,11 @@ class _OrderGroupAreaState extends State<OrderGroupArea> {
                     child: Container(
                       height: 30,
                       child: Center(
-                        child: Text("Chi tiết đơn hàng"),
+                        child: Text(
+                          "Chi tiết đơn hàng",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       decoration: BoxDecoration(
                           color: Colors.blueAccent,

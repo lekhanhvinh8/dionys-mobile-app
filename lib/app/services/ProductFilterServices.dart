@@ -75,4 +75,23 @@ class ProductFilterServices {
 
     return ProductFilterReturn(products: []);
   }
+
+  Future<List<ProductCard>> getRecommendedProducts(String token) async {
+    final uri = Uri.parse(apiEndpoint + "RecommendedProducts")
+        .replace(queryParameters: {
+      "pageSize": "10",
+      "pageNumber": "0",
+    });
+
+    final resposne = await http.get(uri, headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': "bearer " + token,
+    });
+
+    final json = jsonDecode(resposne.body);
+    final products = ProductCard.fromListJson(json["products"]);
+
+    return products;
+  }
 }

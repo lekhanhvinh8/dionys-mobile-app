@@ -91,7 +91,7 @@ class CheckoutProvider with ChangeNotifier {
     notifyListeners();
 
     if (orderId != null) {
-      showSuccessToast(context);
+      //showSuccessToast(context);
     }
   }
 

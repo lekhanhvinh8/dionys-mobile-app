@@ -1,6 +1,6 @@
 class Config {
-  static String apiUrl = "http://localhost:5000/api/";
-  //static String apiUrl = "http://10.0.2.2:5000/api/";
+  //static String apiUrl = "http://localhost:5000/api/";
+  static String apiUrl = "http://10.0.2.2:5000/api/";
 
   static String GHNUrl =
       "https://online-gateway.ghn.vn/shiip/public-api/master-data/";

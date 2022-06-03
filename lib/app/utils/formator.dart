@@ -2,8 +2,8 @@ class Formator {
   static String formatMoney(double amountOfMoney) {
     RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
 
-    //var amountOfMoneyInString = amountOfMoney.toString().replaceAll(regex, '');
-    var amountOfMoneyInString = amountOfMoney.toString();
+    var amountOfMoneyInString = amountOfMoney.toString().replaceAll(regex, '');
+    //var amountOfMoneyInString = amountOfMoney.toString();
 
     if (amountOfMoneyInString.length <= 3) return amountOfMoneyInString;
 

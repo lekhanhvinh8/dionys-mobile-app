@@ -6,6 +6,7 @@ import 'package:dionys/features/cart/cartGroup.dart';
 import 'package:dionys/features/cart/productsSelection.dart';
 import 'package:dionys/features/cart/purchaseBottom.dart';
 import 'package:dionys/features/header/header.dart';
+import 'package:dionys/features/header/headerWithLabel.dart';
 import 'package:dionys/features/productFilter/gridProducts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,23 +42,9 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
         bottomNavigationBar: const PurchaseBottom(),
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(70), // Set this height
-            child: Container(
-              color: Colors.white,
-              height: 50,
-              padding: EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  InkWell(child: Icon(Icons.arrow_back, color: Colors.grey)),
-                  Container(
-                      margin: EdgeInsets.only(left: 7),
-                      child: Text(
-                        "Giỏ hàng",
-                        style: TextStyle(fontSize: 20),
-                      ))
-                ],
-              ),
-            )),
+          preferredSize: Size.fromHeight(70), // Set this height
+          child: HeaderWithLabel(label: "Giỏ hàng"),
+        ),
         body: Container(
             color: const Color.fromRGBO(240, 240, 240, 1),
             height: MediaQuery.of(context).size.height,

@@ -6,6 +6,8 @@ class ProductsFilterProvider with ChangeNotifier {
   bool isReload = false;
   bool drawerOpen = false;
   List<ProductCard> products = [];
+  List<ProductCard> recommendedProducts = [];
+
   int totalProducts = 0;
   FilterRequestParams filterRequestParams = FilterRequestParams();
 
@@ -43,6 +45,14 @@ class ProductsFilterProvider with ChangeNotifier {
     this.products.addAll(products);
     this.totalProducts = totalProducts;
 
+    notifyListeners();
+  }
+
+  void loadRecommendedProducts(String token) async {
+    final newProducts =
+        await ProductFilterServices().getRecommendedProducts(token);
+
+    recommendedProducts = newProducts;
     notifyListeners();
   }
 }

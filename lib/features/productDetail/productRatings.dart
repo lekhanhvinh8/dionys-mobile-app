@@ -41,62 +41,69 @@ class _ProductRatingsState extends State<ProductRatings> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Container(
-            margin: EdgeInsets.only(top: 10),
-            child: Divider(
-              thickness: 1,
-            ),
-          ),
-          Container(
               child: Column(
             children: [
               ...ratings
-                  .map((rating) => Container(
-                        margin: EdgeInsets.only(top: 5),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage(rating.customerAvatarUrl),
+                  .map((rating) => Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Divider(
+                              thickness: 1,
                             ),
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(left: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(rating.customerEmail),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 5),
-                                      child: RatingBar.builder(
-                                        initialRating: rating.stars.toDouble(),
-                                        minRating: 1,
-                                        direction: Axis.horizontal,
-                                        itemCount: 5,
-                                        itemSize: 20,
-                                        itemBuilder: (context, _) => const Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                        ),
-                                        onRatingUpdate: (starts) {},
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 5),
-                                      child: Row(
-                                        children: [
-                                          Flexible(
-                                            child: Text(rating.content),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(rating.customerAvatarUrl),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(rating.customerEmail),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 5),
+                                          child: RatingBar.builder(
+                                            initialRating:
+                                                rating.stars.toDouble(),
+                                            minRating: 1,
+                                            direction: Axis.horizontal,
+                                            itemCount: 5,
+                                            itemSize: 20,
+                                            itemBuilder: (context, _) =>
+                                                const Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                            onRatingUpdate: (starts) {},
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(top: 5),
+                                          child: Row(
+                                            children: [
+                                              Flexible(
+                                                child: Text(rating.content),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ))
                   .toList(),
               if (canLoadMore)
@@ -116,10 +123,20 @@ class _ProductRatingsState extends State<ProductRatings> {
                   ),
                   color: Colors.white,
                 )
-              else
-                Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  child: const Text('Không còn comment nào nữa'),
+              else if (!isLoadMore)
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Divider(
+                        thickness: 1,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      child: const Text('Không còn comment nào nữa'),
+                    )
+                  ],
                 ),
             ],
           )),

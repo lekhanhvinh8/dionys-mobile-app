@@ -1,5 +1,6 @@
 import 'package:dionys/features/user/account/accountPage.dart';
 import 'package:dionys/features/user/addresses/addressesPage.dart';
+import 'package:dionys/home.dart';
 import 'package:flutter/material.dart';
 
 class Card {
@@ -34,20 +35,13 @@ class Navigations extends StatelessWidget {
           AddressesPage()),
       Card(
           Icon(
-            Icons.access_time,
-            color: Colors.green,
-          ),
-          "Đã xem gần đây",
-          null),
-      Card(Icon(Icons.star_rate, color: Colors.yellow), "Đánh giá của tôi",
-          null),
-      Card(
-          Icon(
             Icons.assignment_outlined,
             color: Colors.blue,
           ),
           "Đơn hàng của tôi",
-          null),
+          Home(
+            selectedIndex: 1,
+          )),
     ];
 
     return Container(

@@ -64,6 +64,7 @@ class SliderCategories extends StatelessWidget {
                                   child: Text(
                                 categories[index].name,
                                 textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 12),
                               ))
                             ],
                           );

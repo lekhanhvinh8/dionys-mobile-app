@@ -10,14 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  int selectedIndex = 0;
+  Home({Key? key, this.selectedIndex = 0}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -34,6 +36,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    _selectedIndex = widget.selectedIndex;
     super.initState();
   }
 

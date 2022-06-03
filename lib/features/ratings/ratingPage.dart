@@ -82,6 +82,7 @@ class _RatingPageState extends State<RatingPage> {
       ),
       bottomNavigationBar: Container(
           margin: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.all(10),
           child: Row(
             children: [
               Expanded(

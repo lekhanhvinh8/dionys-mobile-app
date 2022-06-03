@@ -23,8 +23,13 @@ class CartQuantitySelection extends StatelessWidget {
         children: [
           Container(
             width: maxWidth * 0.07,
-            decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey, width: 1)),
+            decoration: BoxDecoration(
+                color: Color(0xC4C4C4),
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2,
+                )),
             child: IconButton(
               icon: Icon(
                 Icons.remove,
@@ -40,11 +45,8 @@ class CartQuantitySelection extends StatelessWidget {
             ),
           ),
           Container(
-            width: maxWidth * 0.13,
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(color: Colors.grey),
-                    bottom: BorderSide(color: Colors.grey))),
+            width: maxWidth * 0.1,
+            decoration: BoxDecoration(),
             child: Center(
               child: TextField(
                 controller: TextEditingController(text: counter.toString()),
@@ -70,8 +72,10 @@ class CartQuantitySelection extends StatelessWidget {
           ),
           Container(
             width: maxWidth * 0.07,
-            decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey, width: 1)),
+            decoration: BoxDecoration(
+                color: Color(0xC4C4C4),
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(color: Colors.grey, width: 2)),
             child: IconButton(
               icon: Icon(
                 Icons.add,

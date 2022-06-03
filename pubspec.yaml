@@ -78,6 +78,7 @@ flutter:
     - assets/products/iphone.jpg
     - assets/products/universe.jpg
     - assets/products/cate1.png
+    - assets/card.png
 
     - assets/
   #   - images/a_dot_burr.jpeg

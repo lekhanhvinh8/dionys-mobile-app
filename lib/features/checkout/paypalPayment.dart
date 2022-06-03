@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:dionys/app/providers/authProvider.dart';
 import 'package:dionys/app/providers/checkoutProvider.dart';
 import 'package:dionys/app/services/orderService.dart';
+import 'package:dionys/features/checkout/thankyouPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -94,11 +95,14 @@ class PaypalPaymentState extends State<PaypalPayment> {
               final payerID = uri.queryParameters['PayerID'];
               final token = uri.queryParameters['token'];
 
-              Navigator.of(context).pop();
-
               // capture;
               checkoutProvider.captureOrder(
                   orderId, authProvider.token as String, context);
+
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => ThankYouPage()),
+              );
             }
             if (request.url.contains(cancelURL)) {
               Navigator.of(context).pop();

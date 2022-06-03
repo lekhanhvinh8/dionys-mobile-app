@@ -57,22 +57,26 @@ class _PurchaseAreaState extends State<PurchaseArea> {
                 }
                 return true;
               },
-              child: ListView(
-                controller: _scrollController,
-                children: [
-                  ...orders
-                      .map((order) => OrderGroupArea(orderGroup: order))
-                      .toList(),
-                  if (canLoadMore)
-                    Container(
-                      alignment: Alignment.topCenter,
-                      margin: const EdgeInsets.only(bottom: 3),
-                      child: const CircularProgressIndicator(
-                        backgroundColor: Colors.grey,
+              child: MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: ListView(
+                  controller: _scrollController,
+                  children: [
+                    ...orders
+                        .map((order) => OrderGroupArea(orderGroup: order))
+                        .toList(),
+                    if (canLoadMore)
+                      Container(
+                        alignment: Alignment.topCenter,
+                        margin: const EdgeInsets.only(bottom: 3),
+                        child: const CircularProgressIndicator(
+                          backgroundColor: Colors.grey,
+                        ),
+                        color: const Color.fromRGBO(240, 240, 240, 1),
                       ),
-                      color: const Color.fromRGBO(240, 240, 240, 1),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

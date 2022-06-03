@@ -26,8 +26,8 @@ class _RatingItemState extends State<RatingItemArea> {
           Row(
             children: [
               Container(
-                width: maxWidth * 0.1,
-                height: maxWidth * 0.1,
+                width: maxWidth * 0.15,
+                height: maxWidth * 0.15,
                 padding: EdgeInsets.all(maxWidth * 0.025),
                 child: Container(
                   decoration: BoxDecoration(

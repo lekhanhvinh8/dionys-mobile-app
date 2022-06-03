@@ -4,6 +4,7 @@ import 'package:dionys/app/providers/authProvider.dart';
 import 'package:dionys/app/providers/cartProvider.dart';
 import 'package:dionys/app/providers/productDetailProvider.dart';
 import 'package:dionys/features/header/header.dart';
+import 'package:dionys/features/header/headerWithLabel.dart';
 import 'package:dionys/features/productDetail/carouselImages.dart';
 import 'package:dionys/features/productDetail/productBasicInfo.dart';
 import 'package:dionys/features/productDetail/productDetailInfo.dart';
@@ -83,6 +84,10 @@ class _ProductDetailState extends State<ProductDetail> {
         productDetailProvider.selectedQuantity == 0) productReadyToCart = false;
 
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70), // Set this height
+        child: HeaderWithLabel(label: "Chi tiết sản phẩm"),
+      ),
       bottomNavigationBar: InkWell(
         onTap: () async {
           final combination = productDetailProvider.getSelectedCombination();
@@ -116,7 +121,6 @@ class _ProductDetailState extends State<ProductDetail> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Header(),
               CarouselImages(),
               ProductBasicInfo(),
               VariantSelection(),

@@ -26,12 +26,14 @@ class ProductProperties extends StatelessWidget {
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
-                      Container(
-                        child: Row(
-                          children: selectProperty.values
-                              .map((value) => Text(value))
-                              .toList(),
-                        ),
+                      Flexible(
+                        child: Text(selectProperty.values.join(', ')),
+
+                        // child: Row(
+                        //   children: selectProperty.values
+                        //       .map((value) => Text(value))
+                        //       .toList(),
+                        // ),
                       )
                     ]),
                   ))

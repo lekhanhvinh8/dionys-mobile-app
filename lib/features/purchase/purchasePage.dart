@@ -48,7 +48,6 @@ class _PurchasePageState extends State<PurchasePage>
   Widget build(BuildContext context) {
     final purchaseProvider = Provider.of<PurchaseProvider>(context);
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final orders = purchaseProvider.orders;
     final tabs = purchaseProvider.tabs;
     final ordersReloading = purchaseProvider.ordersReloading;
 
@@ -99,13 +98,15 @@ class _PurchasePageState extends State<PurchasePage>
                           alignment: Alignment.center,
                           child: Text("Không có đơn hàng nào"),
                         )
-                      : TabBarView(
-                          controller: _tabController,
-                          children: tabs
-                              .map(
-                                (tab) => PurchaseArea(tab: tab),
-                              )
-                              .toList(),
+                      : Container(
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: tabs
+                                .map(
+                                  (tab) => PurchaseArea(tab: tab),
+                                )
+                                .toList(),
+                          ),
                         ),
             )
           ],

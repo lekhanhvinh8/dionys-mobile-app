@@ -18,7 +18,13 @@ class QuantitySelection extends StatelessWidget {
         children: [
           Container(
             width: maxWidth * 0.07,
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+            decoration: BoxDecoration(
+                color: Color(0xC4C4C4),
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 2,
+                )),
             child: IconButton(
               icon: Icon(
                 Icons.remove,
@@ -33,11 +39,8 @@ class QuantitySelection extends StatelessWidget {
             ),
           ),
           Container(
-            width: maxWidth * 0.13,
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(color: Colors.grey),
-                    bottom: BorderSide(color: Colors.grey))),
+            width: maxWidth * 0.1,
+            decoration: BoxDecoration(border: Border()),
             child: Center(
               child: Text(
                 '$counter',
@@ -52,7 +55,10 @@ class QuantitySelection extends StatelessWidget {
           ),
           Container(
             width: maxWidth * 0.07,
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+            decoration: BoxDecoration(
+                color: Color(0xC4C4C4),
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(color: Colors.grey, width: 2)),
             child: IconButton(
               icon: Icon(
                 Icons.add,

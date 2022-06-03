@@ -63,7 +63,6 @@ class PurchaseProvider with ChangeNotifier {
 
       final result =
           await OrderService(token).getFilteredOrders(statusCode: statusCode);
-
       orders = result.orders;
       totalOrders = result.totalOrders;
 

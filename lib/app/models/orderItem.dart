@@ -4,7 +4,7 @@ class OrderGroup {
   String orderDate;
   int shopId;
   String shopName;
-  int total;
+  double total;
   double shippingCost;
   List<OrderItem> items;
 
@@ -48,7 +48,7 @@ class OrderItem {
     final orderItem = OrderItem(
       json["id"],
       json["productId"],
-      json["combinationId"],
+      json["combinationId"] as int?,
       json["name"],
       json["variant"],
       json["image"],
@@ -56,17 +56,17 @@ class OrderItem {
       json["price"],
     );
 
-    // final orderItem = OrderItem(
+    return orderItem;
+
+    // return OrderItem(
     //   1,
     //   1,
-    //   "1",
+    //   1,
     //   "name",
     //   "variant",
     //   "image",
     //   1,
     //   12321,
     // );
-
-    return orderItem;
   }
 }

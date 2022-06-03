@@ -38,7 +38,7 @@ class AccountActions extends StatelessWidget {
                       action.action();
                     },
                     child: Container(
-                      height: maxWidth * 0.1,
+                      height: maxWidth * 0.13,
                       color: Colors.white,
                       margin: EdgeInsets.only(bottom: 2),
                       padding: EdgeInsets.all(10),

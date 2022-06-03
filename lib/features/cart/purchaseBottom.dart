@@ -11,6 +11,15 @@ class PurchaseBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     var maxWidth = MediaQuery.of(context).size.width;
     final cartProvider = Provider.of<CartProvider>(context);
+    double totalCosts = 0;
+
+    for (var cartGroup in cartProvider.cartGroups) {
+      for (var item in cartGroup.items) {
+        if (item.checked) {
+          totalCosts += (item.price * item.amount);
+        }
+      }
+    }
 
     return Container(
       width: maxWidth,
@@ -38,13 +47,13 @@ class PurchaseBottom extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                  padding: EdgeInsets.all(maxWidth * 0.01),
+                  padding: EdgeInsets.all(maxWidth * 0.02),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text("Tổng thanh toán"),
                       Text(
-                        Formator.formatMoney(100000) + "đ",
+                        Formator.formatMoney(totalCosts) + "đ",
                         style: TextStyle(
                             color: Colors.red, fontWeight: FontWeight.bold),
                       ),

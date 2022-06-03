@@ -19,6 +19,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
     var product = productDetailProvider.productDetail;
 
     return ListView(
+      physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       children: [
