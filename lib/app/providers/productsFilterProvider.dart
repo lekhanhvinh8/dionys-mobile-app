@@ -55,4 +55,14 @@ class ProductsFilterProvider with ChangeNotifier {
     recommendedProducts = newProducts;
     notifyListeners();
   }
+
+  void setSearchKey(String key) async {
+    filterRequestParams.searchKey = key;
+    notifyListeners();
+  }
+
+  Future<void> reloadProducts() async {
+    var result = await ProductFilterServices().filter(filterRequestParams);
+    loadProducts(result.products, result.totalProducts);
+  }
 }
